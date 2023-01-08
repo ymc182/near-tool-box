@@ -31,7 +31,7 @@ export default async function handler(
 				token_id: i.toString(),
 			}).catch((err: any) => {});
 
-			if (nft) resolve(nft.owner_id);
+			if (nft) resolve({ token_id: nft.token_id, owner_id: nft.owner_id });
 			else resolve(null);
 		});
 
