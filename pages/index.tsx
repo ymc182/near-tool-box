@@ -1,10 +1,10 @@
 import Head from "next/head";
-import Image from "next/image";
+
 import { Inter } from "@next/font/google";
 import styles from "../styles/Home.module.css";
-import { trpc } from "../utils/trpc";
+
 import { useEffect, useState } from "react";
-import { FieldValues, useForm } from "react-hook-form";
+import axios from "axios";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
@@ -35,7 +35,10 @@ export default function Home() {
 			return;
 		}
 		setNftsIsLoading(true);
-		const nftsData = await (await fetch(`/api/nfts/${contractId}`)).json();
+		const nftsData = await (
+			await axios.get(`/api/nfts/${contractId}`, { timeout: 1000 * 60 * 5 })
+		).data;
+
 		if (nftsData.success) handleSaveToPC(nftsData.data, `${contractId}`);
 		else window.alert("Error fetching NFTs");
 		setNftsIsLoading(false);
