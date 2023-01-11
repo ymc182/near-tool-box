@@ -42,6 +42,6 @@ export default async function handler(
 	for (const result of results) {
 		if (result !== null) allNfts.push(result);
 	}
-	console.log(allNfts);
+
 	res.status(200).json({ success: true, data: allNfts });
 }
